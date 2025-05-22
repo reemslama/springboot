@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Parent POM for Spring Boot -->
     <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.5</version> <!-- Upgrade ici -->
-    <relativePath/>
-</parent>
-
-
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.5</version> <!-- Upgrade ici -->
+        <relativePath/>
+    </parent>
 
     <!-- Project metadata -->
     <groupId>com.example</groupId>
@@ -19,7 +18,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>projet</name>
     <description>Demo project for Spring Boot</description>
-    <url>http://example.com</url> <!-- Remplacez par l'URL réelle de votre projet -->
+    <url>http://example.com</url>
 
     <!-- License information -->
     <licenses>
@@ -39,7 +38,7 @@
         </developer>
     </developers>
 
-    <!-- SCM (Source Code Management) information -->
+    <!-- SCM information -->
     <scm>
         <connection>scm:git:git://github.com/example/projet.git</connection>
         <developerConnection>scm:git:ssh://github.com/example/projet.git</developerConnection>
@@ -49,32 +48,26 @@
 
     <!-- Properties -->
     <properties>
-        <java.version>21</java.version> <!-- Version de Java -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- Encodage -->
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> <!-- Encodage -->
+        <java.version>21</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <!-- Dependencies -->
     <dependencies>
-        <!-- Spring Boot Starter for MongoDB -->
+        <!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
-
-        <!-- Spring Boot Starter for Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
-        <!-- Spring Boot Starter for Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-
-        <!-- Spring Boot Starter for Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -89,22 +82,40 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-configuration-processor</artifactId>
-    <optional>true</optional>
-</dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        
+        <!-- Ajout Apache HttpClient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+        </dependency>
 
-
-
-    
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-math3</artifactId>
-        <version>3.6.1</version>
-      </dependency>
+        <!-- Ajout Apache HttpMime -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.5.14</version>
+        </dependency>
     </dependencies>
-    
+
     <!-- Build configuration -->
     <build>
         <plugins>
@@ -114,7 +125,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!-- Compiler Plugin (optionnel, mais recommandé) -->
+            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

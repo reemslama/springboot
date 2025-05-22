@@ -1,15 +1,14 @@
 package com.example.dection_anomalie.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import java.util.List;
 import com.example.dection_anomalie.entity.Message;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+import java.util.List;
 
 public interface MessageRepo extends MongoRepository<Message, String> {
 
-    // Méthode pour récupérer les messages entre un utilisateur et un nutritionniste
-    List<Message> findBySenderIdAndReceiverId(String senderId, String receiverId);
-
-    // Méthode pour récupérer les messages non lus pour un utilisateur
-    List<Message> findByReceiverIdAndIsRead(String receiverId, boolean isRead);
-
+    @Query("{ '$or': [ " +
+           "{ 'senderEmail': ?0, 'receiverEmail': ?1 }, " +
+           "{ 'senderEmail': ?1, 'receiverEmail': ?0 } ] }")
+    List<Message> findConversationBetween(String email1, String email2);
 }

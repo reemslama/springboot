@@ -3,17 +3,17 @@ package com.example.dection_anomalie.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "messages")  // Spécifie que cette entité sera stockée dans la collection "messages"
+import java.util.Date;
+
+@Document(collection = "messages")
 public class Message {
 
     @Id
-    private String id;  // Utilise String pour l'ID généré automatiquement par MongoDB
-    private String senderId;
-    private String receiverId;
-    private String senderType;  // "user" ou "nutritionniste"
-    private String receiverType;  // "user" ou "nutritionniste"
-    private String message;
-    private boolean isRead;  // pour savoir si le message est lu
+    private String id;
+    private String senderEmail;
+    private String receiverEmail;
+    private String content;
+    private Date timestamp;
 
     // Getters et setters
     public String getId() {
@@ -24,51 +24,35 @@ public class Message {
         this.id = id;
     }
 
-    public String getSenderId() {
-        return senderId;
+    public String getSenderEmail() {
+        return senderEmail;
     }
 
-    public void setSenderId(String senderId) {
-        this.senderId = senderId;
+    public void setSenderEmail(String senderEmail) {
+        this.senderEmail = senderEmail;
     }
 
-    public String getReceiverId() {
-        return receiverId;
+    public String getReceiverEmail() {
+        return receiverEmail;
     }
 
-    public void setReceiverId(String receiverId) {
-        this.receiverId = receiverId;
+    public void setReceiverEmail(String receiverEmail) {
+        this.receiverEmail = receiverEmail;
     }
 
-    public String getSenderType() {
-        return senderType;
+    public String getContent() {
+        return content;
     }
 
-    public void setSenderType(String senderType) {
-        this.senderType = senderType;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getReceiverType() {
-        return receiverType;
+    public Date getTimestamp() {
+        return timestamp;
     }
 
-    public void setReceiverType(String receiverType) {
-        this.receiverType = receiverType;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public boolean isRead() {
-        return isRead;
-    }
-
-    public void setRead(boolean isRead) {
-        this.isRead = isRead;
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 }

@@ -58,4 +58,8 @@ public class NutritionnisteService {
     public Nutritionniste getByEmail(String email) {
         return nutritionnisteRepo.findByEmail(email);  // Utilise la méthode du repository pour trouver par email
     }
+     // ✅ Obtenir le nombre total de nutritionnistes
+     public long countNutritionnistes() {
+        return nutritionnisteRepo.count();
+    }
 }

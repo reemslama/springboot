@@ -1,10 +1,14 @@
 package com.example.dection_anomalie.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import com.example.dection_anomalie.entity.Message;
-import com.example.dection_anomalie.service.MessageService;
+import com.example.dection_anomalie.repository.MessageRepo;
+import com.example.dection_anomalie.response.ApiResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -13,29 +17,26 @@ import java.util.List;
 public class MessageController {
 
     @Autowired
-    private MessageService messageService;
+    private MessageRepo messageRepository;
 
-    // Récupérer les messages entre un utilisateur et un nutritionniste
-    @GetMapping("/chat")
-    public List<Message> getChat(@RequestParam String senderId, @RequestParam String receiverId) {
-        return messageService.getMessages(senderId, receiverId);
+    @PostMapping("/send")
+    public ResponseEntity<ApiResponse> sendMessage(@RequestBody Message message) {
+        if (message.getContent() == null || message.getContent().trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(ApiResponse.fail("Le contenu du message est vide."));
+        }
+
+        message.setTimestamp(new Date());
+        Message savedMessage = messageRepository.save(message);
+        return ResponseEntity.ok(ApiResponse.ok("Message envoyé avec succès.", savedMessage));
     }
 
-    // Envoyer un message
-    @PostMapping
-    public void sendMessage(@RequestBody Message message) {
-        messageService.saveMessage(message);
-    }
+    @GetMapping("/conversation")
+    public ResponseEntity<ApiResponse> getConversation(
+            @RequestParam String senderEmail,
+            @RequestParam String receiverEmail) {
 
-    // Récupérer les messages non lus pour un utilisateur
-    @GetMapping("/unread/{receiverId}")
-    public List<Message> getUnreadMessages(@PathVariable String receiverId) {
-        return messageService.getUnreadMessages(receiverId);
-    }
-
-    // Marquer les messages comme lus
-    @PostMapping("/mark-read")
-    public void markAsRead(@RequestBody List<String> messageIds) {
-        messageService.markMessagesAsRead(messageIds);
+        List<Message> conversation = messageRepository.findConversationBetween(senderEmail, receiverEmail);
+        conversation.sort(Comparator.comparing(Message::getTimestamp));
+        return ResponseEntity.ok(ApiResponse.ok("Conversation récupérée avec succès.", conversation));
     }
 }

@@ -67,6 +67,15 @@ public class NutritionnisteController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();  // Code 401 pour échec de l'authentification
     }
     // Ajouter une méthode pour obtenir le nombre de nutritionnistes
-    
+    // ✅ Obtenir le nombre total de nutritionnistes
+    @GetMapping("/count")
+    public ResponseEntity<Long> getNutritionnisteCount() {
+        try {
+            long count = nutritionnisteService.countNutritionnistes();
+            return ResponseEntity.ok(count);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
